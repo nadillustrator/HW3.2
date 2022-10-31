@@ -3,7 +3,6 @@ package uk.hogwarts.school.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uk.hogwarts.school.model.Faculty;
-import uk.hogwarts.school.model.Student;
 import uk.hogwarts.school.service.FacultyService;
 
 import java.util.Collection;
@@ -37,9 +36,9 @@ public class FacultyController {
     }
 
 
-    @PutMapping(path = "{id}")  // PUT http:localhost:8080/faculty/1
-    public ResponseEntity<Faculty> updateFaculty(@PathVariable Long id, @RequestBody Faculty faculty) {
-        Faculty newFaculty = facultyService.updateFaculty(id, faculty);
+    @PutMapping  // PUT http:localhost:8080/faculty
+    public ResponseEntity<Faculty> updateFaculty(@RequestBody Faculty faculty) {
+        Faculty newFaculty = facultyService.updateFaculty(faculty);
         if (newFaculty == null) {
             return ResponseEntity.badRequest().build();
         }
@@ -47,12 +46,9 @@ public class FacultyController {
     }
 
     @DeleteMapping(path = "{id}")  // DELETE http:localhost:8080/faculty/1
-    public ResponseEntity<Faculty> deleteFaculty(@PathVariable Long id) {
-        Faculty deletedFaculty = facultyService.deleteFaculty(id);
-        if (deletedFaculty == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(deletedFaculty);
+    public ResponseEntity deleteFaculty(@PathVariable Long id) {
+        facultyService.deleteFaculty(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping(path = "/getAll")  // GET http:localhost:8080/faculty/getAll

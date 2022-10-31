@@ -35,9 +35,9 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
-    @PutMapping(path = "{id}")   // PUT http:localhost:8080/student/1
-    public ResponseEntity<Student> updateStudent(@PathVariable Long id, @RequestBody Student student) {
-        Student newStudent = studentService.updateStudent(id, student);
+    @PutMapping   // PUT http:localhost:8080/student
+    public ResponseEntity<Student> updateStudent(@RequestBody Student student) {
+        Student newStudent = studentService.updateStudent(student);
         if (newStudent == null) {
             return ResponseEntity.badRequest().build();
         }
@@ -45,12 +45,9 @@ public class StudentController {
     }
 
     @DeleteMapping(path = "{id}")   // DELETE http:localhost:8080/student/1
-    public ResponseEntity<Student> deleteStudent(@PathVariable Long id) {
-        Student deletedStudent = studentService.deleteStudent(id);
-        if (deletedStudent == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(deletedStudent);
+    public ResponseEntity deleteStudent(@PathVariable Long id) {
+        studentService.deleteStudent(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping(path = "/getAll")   // GET http:localhost:8080/student/getAll

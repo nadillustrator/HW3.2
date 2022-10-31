@@ -1,20 +1,27 @@
 package uk.hogwarts.school.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 
+@Entity
 public class Student {
+
+    @Id
+    @GeneratedValue
     private Long id;
     private String name;
     private int age;
-    private Faculty faculty;
 
-    private static Long generateStudentId = 1L;
+
+    public Student() {
+    }
 
     public Student(String name, int age, Faculty faculty) {
-        this.id = generateStudentId++;
+        this.id = id;
         this.name = name;
         this.age = age;
-        this.faculty = faculty;
     }
 
     @Override
@@ -22,8 +29,7 @@ public class Student {
         return "Student:" + name +
                 ", id: " + id +
                 ", age: " + age +
-                " years old, faculty: "
-                + faculty.getName();
+                " years old.";
     }
 
     @Override
@@ -67,11 +73,4 @@ public class Student {
         this.age = age;
     }
 
-    public Faculty getFaculty() {
-        return faculty;
-    }
-
-    public void setFaculty(Faculty faculty) {
-        this.faculty = faculty;
-    }
 }
