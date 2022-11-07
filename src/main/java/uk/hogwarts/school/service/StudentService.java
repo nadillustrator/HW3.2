@@ -38,13 +38,8 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Collection<Student> sortStudentsByAge(int age) {
-        List<Student> sortedStudents = getAll().stream()
-                .filter(student -> (age == student.getAge()))
-                .collect(Collectors.toList());
-        if (sortedStudents.isEmpty()) {
-            return null;
-        }
-        return sortedStudents;
+    public Collection<Student> findStudentsByAgeDiapason(int min, int max) {
+        return studentRepository.findByAgeBetween(min, max);
     }
+
 }
