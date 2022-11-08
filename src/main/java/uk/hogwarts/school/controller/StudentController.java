@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uk.hogwarts.school.model.Faculty;
 import uk.hogwarts.school.model.Student;
+import uk.hogwarts.school.service.FacultyService;
 import uk.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
@@ -67,8 +68,12 @@ public class StudentController {
     }
 
     @GetMapping("/faculty")
-    public ResponseEntity<Collection<Student>> findStudentsByFaculty(long id) {
-        return ResponseEntity.ok(studentService.findStudentsByFaculty(id));
+    public ResponseEntity<Collection<Student>> findStudentsByFaculty(@RequestParam long faciltyId) {
+        return ResponseEntity.ok(studentService.findStudentsByFaculty(faciltyId));
     }
 
+    @GetMapping("/facultyStudent")
+    public ResponseEntity<Faculty> findFacultyByStudent(@RequestParam long studentId) {
+        return ResponseEntity.ok(studentService.getFacultyByStudent(studentId));
+    }
 }

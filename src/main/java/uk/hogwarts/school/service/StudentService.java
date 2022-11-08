@@ -6,15 +6,15 @@ import uk.hogwarts.school.model.Student;
 import uk.hogwarts.school.repositories.StudentRepository;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
 
+    private final FacultyService facultyService;
     private final StudentRepository studentRepository;
 
-
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(FacultyService facultyService, StudentRepository studentRepository) {
+        this.facultyService = facultyService;
         this.studentRepository = studentRepository;
     }
 
@@ -47,4 +47,10 @@ public class StudentService {
         return studentRepository.findStudentByFaculty_Id(id);
     }
 
+    public Faculty getFacultyByStudent(long id) {
+        Student student = getStudent(id);
+        Collection<Faculty> faculties = facultyService.getAll();
+        return faculties.stream().filter(faculty -> faculty.getStudents().contains(student))
+                .findFirst().orElse(null);
+    }
 }
