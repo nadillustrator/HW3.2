@@ -66,6 +66,9 @@ public class StudentController {
        return ResponseEntity.ok(studentService.findStudentsByAgeDiapason(min, max));
     }
 
-
+    @GetMapping("/faculty")
+    public ResponseEntity<Collection<Student>> findStudentsByFaculty(long id) {
+        return ResponseEntity.ok(studentService.findStudentsByFaculty(id));
+    }
 
 }
