@@ -74,6 +74,10 @@ public class StudentController {
 
     @GetMapping("/facultyStudent")
     public ResponseEntity<Faculty> findFacultyByStudent(@RequestParam long studentId) {
-        return ResponseEntity.ok(studentService.getFacultyByStudent(studentId));
+        Faculty faculty = studentService.getFacultyByStudent(studentId);
+        if (faculty == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(faculty);
     }
 }
