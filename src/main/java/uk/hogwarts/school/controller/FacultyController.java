@@ -62,8 +62,8 @@ public class FacultyController {
     }
 
     @GetMapping // GET http:localhost:8080/faculty
-    public ResponseEntity<Collection<Faculty>> sortFacultiesByColor(@RequestParam(required = false) String name,
-                                                                    @RequestParam(required = false) String color) {
+    public ResponseEntity<Collection<Faculty>> sortFacultiesByNameOrColor(@RequestParam(required = false) String name,
+                                                                          @RequestParam(required = false) String color) {
         if (name != null && !name.isBlank()) {
             return ResponseEntity.ok(facultyService.findFacultiesByName(name));
         }

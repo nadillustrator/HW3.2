@@ -4,7 +4,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uk.hogwarts.school.model.Faculty;
 import uk.hogwarts.school.model.Student;
-import uk.hogwarts.school.service.FacultyService;
 import uk.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
@@ -64,7 +63,7 @@ public class StudentController {
     @GetMapping   // GET http:localhost:8080/student
     public ResponseEntity<Collection<Student>> sortStudentsByAge(@RequestParam int min,
                                                                  @RequestParam int max) {
-       return ResponseEntity.ok(studentService.findStudentsByAgeDiapason(min, max));
+        return ResponseEntity.ok(studentService.findStudentsByAgeDiapason(min, max));
     }
 
     @GetMapping("/faculty")
