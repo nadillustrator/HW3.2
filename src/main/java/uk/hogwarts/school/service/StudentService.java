@@ -1,6 +1,8 @@
 package uk.hogwarts.school.service;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import uk.hogwarts.school.model.AvatarsByPage;
 import uk.hogwarts.school.model.Faculty;
 import uk.hogwarts.school.model.Student;
 import uk.hogwarts.school.repositories.StudentRepository;
@@ -53,4 +55,18 @@ public class StudentService {
         return faculties.stream().filter(faculty -> faculty.getStudents().contains(student))
                 .findFirst().orElse(null);
     }
+
+    public Integer getAmountOfStudents() {
+       return studentRepository.getAmountOfStudents();
+    }
+
+    public Double getAverageAgeOfStudents() {
+        return studentRepository.getAverageAgeOfStudents();
+    };
+
+    public List<Student> getLastFiveOfStudentsById() {
+        return studentRepository.getLastOfStudentsById();
+    }
+
+
 }

@@ -15,6 +15,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping
@@ -58,5 +61,19 @@ public class AvatarController {
             response.setContentLength((int) avatar.getFileSize());
             is.transferTo(os);
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<HttpHeaders>> getAvatarsByPage(@RequestParam("page-number") Integer pageNumber,
+                                                         @RequestParam("page-size") Integer pageSize) {
+        List<Avatar> avatars = avatarService.getAvatarsByPage(pageNumber, pageSize);
+        List<HttpHeaders> avatarsHeaders = new ArrayList<>(avatars.size());
+        for (Avatar avatar : avatars) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.parseMediaType(avatar.getMediaType()));
+            headers.setContentLength(avatar.getData().length);
+            avatarsHeaders.add(headers);
+        }
+        return ResponseEntity.ok(avatarsHeaders);
     }
 }
