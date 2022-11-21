@@ -1,5 +1,7 @@
 package uk.hogwarts.school.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,7 +25,7 @@ import java.util.stream.Collectors;
 @RequestMapping
 public class AvatarController {
 
-    AvatarService avatarService;
+    private final AvatarService avatarService;
 
     public AvatarController(AvatarService avatarService) {
         this.avatarService = avatarService;
@@ -65,7 +67,7 @@ public class AvatarController {
 
     @GetMapping
     public ResponseEntity<List<HttpHeaders>> getAvatarsByPage(@RequestParam("page-number") Integer pageNumber,
-                                                         @RequestParam("page-size") Integer pageSize) {
+                                                              @RequestParam("page-size") Integer pageSize) {
         List<Avatar> avatars = avatarService.getAvatarsByPage(pageNumber, pageSize);
         List<HttpHeaders> avatarsHeaders = new ArrayList<>(avatars.size());
         for (Avatar avatar : avatars) {
