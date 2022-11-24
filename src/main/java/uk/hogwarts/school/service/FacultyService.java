@@ -56,4 +56,14 @@ public class FacultyService {
         return facultyRepository.findAllByColorIgnoreCase(color);
     }
 
+
+    public String findLongestFacultyName() {
+        LOGGER.debug("Method findLongestFacultyName was invoked");
+        return facultyRepository.findAll()
+                .stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparing(String::length))
+                .orElse(null);
+    }
+
 }

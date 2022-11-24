@@ -4,12 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import uk.hogwarts.school.model.AvatarsByPage;
 import uk.hogwarts.school.model.Faculty;
 import uk.hogwarts.school.model.Student;
 import uk.hogwarts.school.repositories.StudentRepository;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -84,5 +86,23 @@ public class StudentService {
         return studentRepository.getLastOfStudentsById();
     }
 
+    public List<String> getAllStudentsStartingWithLetter(String letter) {
+        LOGGER.debug("Method getAllStudentsStartingWithLetter was invoked");
+        return studentRepository.findAll()
+                .parallelStream()
+                .filter(s -> s.getName().startsWith(letter.toUpperCase()))
+                .map(s -> s.getName().toUpperCase())
+                .collect(Collectors.toList());
+    }
+
+
+    public Double getAverageAgeOfAllStudents() {
+        LOGGER.debug("Method getAverageAgeOfAllStudents was invoked");
+        return studentRepository.findAll()
+                .stream()
+                .mapToInt(Student::getAge)
+                .average()
+                .orElse(0);
+    }
 
 }

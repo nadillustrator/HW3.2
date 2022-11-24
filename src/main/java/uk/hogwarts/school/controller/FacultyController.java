@@ -3,7 +3,6 @@ package uk.hogwarts.school.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uk.hogwarts.school.model.Faculty;
-import uk.hogwarts.school.model.Student;
 import uk.hogwarts.school.service.FacultyService;
 
 import java.util.Collection;
@@ -73,4 +72,8 @@ public class FacultyController {
         return ResponseEntity.ok(facultyService.getAll());
     }
 
+    @GetMapping("/longestFacultyName")
+    public ResponseEntity<String> findLongestFacultyName() {
+        return ResponseEntity.ok(facultyService.findLongestFacultyName());
+    }
 }

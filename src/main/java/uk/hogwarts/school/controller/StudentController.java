@@ -97,4 +97,14 @@ public class StudentController {
     public ResponseEntity<List<Student>> getLastFiveOfStudentsById() {
         return ResponseEntity.ok(studentService.getLastFiveOfStudentsById());
     }
+
+    @GetMapping("/studentsStartWith")
+    public ResponseEntity<List<String>> getAllStudentsStartingWithLetter(@RequestParam String letter) {
+        return ResponseEntity.ok(studentService.getAllStudentsStartingWithLetter(letter));
+    }
+
+    @GetMapping("/averageAge")
+    public ResponseEntity<Double> getAverageAgeOfAllStudents() {
+        return ResponseEntity.ok(studentService.getAverageAgeOfAllStudents());
+    }
 }
