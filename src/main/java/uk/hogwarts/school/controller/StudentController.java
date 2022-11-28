@@ -107,4 +107,16 @@ public class StudentController {
     public ResponseEntity<Double> getAverageAgeOfAllStudents() {
         return ResponseEntity.ok(studentService.getAverageAgeOfAllStudents());
     }
+
+    @GetMapping("/getAllStudentsWithThreads")
+    public ResponseEntity<Void> getAllStudentsWithThreads() {
+        studentService.getAllStudentsWithThreads();
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/getAllStudentsWithSynchronizedThreads")
+    public ResponseEntity<Void> getAllStudentsWithSynchronizedThreads() {
+        studentService.getAllStudentsWithSynchronizedThreads();
+        return ResponseEntity.ok().build();
+    }
 }
