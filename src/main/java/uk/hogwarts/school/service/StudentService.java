@@ -125,24 +125,22 @@ public class StudentService {
     public void getAllStudentsWithSynchronizedThreads() {
         LOGGER.debug("Method getAllStudentsWithSynchronizedThreads was invoked");
         List<Student> students = studentRepository.findAll();
-        printStudentSynchronized(students.get(0));
-        printStudentSynchronized(students.get(1));
+        printStudentSynchronized(students.get(0), students.get(1));
 
         new Thread(() -> {
-            printStudentSynchronized(students.get(2));
-            printStudentSynchronized(students.get(3));
+            printStudentSynchronized(students.get(2), students.get(3));
         }).start();
 
         new Thread(() -> {
-            printStudentSynchronized(students.get(4));
-            printStudentSynchronized(students.get(5));
+            printStudentSynchronized(students.get(4), students.get(5));
         }).start();
     };
     public void printStudent(Student student) {
         System.out.println(student.getName());
     }
 
-    public synchronized void printStudentSynchronized(Student student) {
+    public synchronized void printStudentSynchronized(Student student, Student student2) {
         System.out.println(student.getName());
+        System.out.println(student2.getName());
     }
 }
